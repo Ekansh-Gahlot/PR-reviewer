@@ -11,10 +11,14 @@ const PromiseTry = new Promise((resolve, reject)=>{
 
 PromiseTry
 .then((res)=>{
+    console.log("Success")
     console.log(res)
 })
 .catch((err)=>{
     console.log(err)
+})
+.finally(()=>{
+    console.log("Finally executed   ")
 })
 
 
