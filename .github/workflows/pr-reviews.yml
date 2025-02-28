@@ -2,7 +2,7 @@ name: Automated PR Review
 
 on:
   pull_request:
-    types: [opened, synchronize] # Trigger on PR open or update
+    types: [opened, synchronize]
 
 jobs:
   review-pr:
@@ -21,7 +21,7 @@ jobs:
 
       - name: Run PR review script
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provided by GitHub Actions
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} # Add this to repo secrets
-          GITHUB_CONTEXT: ${{ toJson(github) }} # Pass GitHub context
-        run: ts-node pr-reviewer.ts
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: npx ts-node pr-reviewer.ts
