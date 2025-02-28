@@ -15,13 +15,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: 'npm' # Cache npm dependencies for faster runs
 
       - name: Install dependencies
-        run: npm install @octokit/rest openai typescript ts-node
+        run: npm install
 
       - name: Run PR review script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: npx ts-node pr-reviewer.ts
+        run: npx ts-node --esm pr-reviewer.ts
