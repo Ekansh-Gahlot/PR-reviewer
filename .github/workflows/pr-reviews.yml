@@ -17,16 +17,11 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: List files
-        run: ls -la
+        run: npm install @octokit/rest openai typescript ts-node
 
       - name: Run PR review script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-          pwd
-          npx ts-node pr-reviewer.ts
+        run: npx ts-node --esm pr-reviewer.ts
