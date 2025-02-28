@@ -4,9 +4,6 @@ on:
   pull_request:
     types: [opened, synchronize]
 
-permissions:
-  pull-requests: write
-
 jobs:
   review-pr:
     runs-on: ubuntu-latest
@@ -27,4 +24,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: npx ts-node pr-reviewer.ts
+        run: npx ts-node --esm pr-reviewer.ts
