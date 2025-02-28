@@ -16,6 +16,9 @@ PromiseTry
 .catch((err)=>{
     console.log(err)
 })
+.finally(()=>{
+    console.log("Finally executed  ")
+})
 
 
 
