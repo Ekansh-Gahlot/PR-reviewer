@@ -1,0 +1,27 @@
+name: Automated PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize] # Trigger on PR open or update
+
+jobs:
+  review-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install @octokit/rest openai typescript ts-node
+
+      - name: Run PR review script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provided by GitHub Actions
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} # Add this to repo secrets
+          GITHUB_CONTEXT: ${{ toJson(github) }} # Pass GitHub context
+        run: ts-node pr-reviewer.ts
